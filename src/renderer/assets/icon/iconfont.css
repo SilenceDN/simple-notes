@@ -1,0 +1,44 @@
+@font-face {
+  font-family: "iconfont";
+  src:url('iconfont.ttf?t=1546052149533') format('truetype')
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-look:before {
+  content: "\e619";
+}
+
+.icon-fill222:before {
+  content: "\e600";
+}
+
+.icon-logout:before {
+  content: "\e89a";
+}
+
+.icon-delete:before {
+  content: "\e655";
+}
+
+.icon-login:before {
+  content: "\e837";
+}
+
+.icon-sync:before {
+  content: "\e633";
+}
+
+.icon-tag:before {
+  content: "\e707";
+}
+
+.icon-edit:before {
+  content: "\e60f";
+}
