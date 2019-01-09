@@ -7,13 +7,14 @@ import '@/assets/icon/iconfont.css'
 import '@/assets/main.css'
 
 Vue.config.productionTip = false
-Vue.use(Antd)
+Vue.use(Antd);
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
-Vue.config.productionTip = false
 
 /* eslint-disable no-new */
 new Vue({
-  components: { App },
+  components: {
+    App
+  },
   router,
   template: '<App/>'
 }).$mount('#app')
