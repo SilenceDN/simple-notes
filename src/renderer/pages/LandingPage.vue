@@ -2,12 +2,12 @@
     <div id="wrapper">
         <a-layout>
             <a-layout-sider width="140">
-                <Sider/>
+                <sider/>
             </a-layout-sider>
             <a-layout-sider :width="siderWidth" style="position:relative" ref="second-list">
                 <div class="second-side-wrapper">
-                    <SecondList :class="{'draging':isDrag}"/>
-                    <Resizer
+                    <side-list :class="{'draging':isDrag}"/>
+                    <resizer
                         @drag-start="dragStart"
                         @drag-end="dragEnd "
                         @drag-move="handleWidthChange"
@@ -15,7 +15,9 @@
                 </div>
             </a-layout-sider>
             <a-layout :class="{'draging':isDrag}">
-                <a-layout-header>Header</a-layout-header>
+                <a-layout-header>
+                    <div class="head-wrapper">Es6 特性常见写法</div>
+                </a-layout-header>
                 <a-layout-content>Content</a-layout-content>
             </a-layout>
         </a-layout>
@@ -25,10 +27,10 @@
 <script>
 import Sider from "@/components/Sider";
 import Resizer from "@/components/Resizer";
-import SecondList from "@/components/SecondList";
+import SideList from "@/components/SideList";
 export default {
     name: "landing-page",
-    components: { Sider, Resizer, SecondList },
+    components: { Sider, Resizer, SideList },
     data () {
         return {
             isDrag: false,
@@ -57,56 +59,52 @@ export default {
 };
 </script>
 
-<style>
+<style lang="less">
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
-#wrapper > .ant-layout {
-    height: 100vh;
-}
 #wrapper {
-    background: radial-gradient(
-        ellipse at top left,
-        rgba(255, 255, 255, 1) 40%,
-        rgba(229, 229, 229, 0.9) 100%
-    );
+    background: #fff;
     height: 100vh;
     width: 100vw;
-}
-#wrapper .ant-layout-sider {
-    transition-delay: 0s;
-    transition: all 0s;
-}
-#wrapper .ant-layout-sider:nth-child(1) {
-    color: hsla(0, 0%, 100%, 0.65);
-    background: #323237;
-}
-#wrapper .ant-layout-sider:nth-child(2) {
-    background: #f0f2f5;
-    box-shadow: rgba(55, 55, 55, 0.08) 7px 0px 7px -7px;
-    z-index: 1;
-}
-#wrapper .ant-layout-header,
-.ant-layout-content {
-    background: #f6f5f6;
-    position: relative;
-}
-#wrapper .ant-layout-header {
-    padding: 12px 15px;
-    height: 50px;
-    line-height: inherit;
-    z-index: 1;
-}
-#wrapper .ant-layout-header::after {
-    content: "";
-    position: absolute;
-    height: 7px;
-    bottom: -7px;
-    left: 0;
-    right: 0;
-    box-shadow: rgba(55, 55, 55, 0.3) 0 7px 7px -7px inset;
+    .ant-layout {
+        height: 100%;
+    }
+    .ant-layout-sider {
+        transition-delay: 0s;
+        transition: all 0s;
+        &:nth-child(1) {
+            color: #303e4d;
+            background: #f7f8f8;
+        }
+        &:nth-child(2) {
+            background: #fff;
+            // border-right: 1px solid #f7f8f8;
+            z-index: 1;
+        }
+    }
+    .ant-layout-content {
+        background: #fff;
+        padding: 12px;
+    }
+    .ant-layout-header {
+        color: #303e4d;
+        font-size: 15px;
+        height: auto;
+        background: #fff;
+        position: relative;
+        padding: 12px;
+        line-height: inherit;
+        z-index: 1;
+        .head-wrapper {
+            background: #f7f8f8;
+            padding: 12px;
+            height: 100%;
+            border-radius: 6px;
+        }
+    }
 }
 .second-side-wrapper {
     display: flex;

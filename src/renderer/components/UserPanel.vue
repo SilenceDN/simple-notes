@@ -1,73 +1,69 @@
-<style scoped>
+<style lang="less" scoped>
 .head {
-  width: 80px;
-  height: 80px;
-  margin: 8px auto;
+    text-align: center;
+    padding: 10px 0;
+    img {
+        width: 90px;
+    }
 }
 section {
-  font-size: 15px;
+    font-size: 15px;
 }
 .anticon {
-  color: #2f80ff;
-  margin-right: 6px;
+    color: inherit;
+    margin-right: 6px;
 }
 ul {
-  margin-top: 6px;
+    margin-top: 6px;
 }
 li {
-  padding: 4px 8px;
-  vertical-align: bottom;
-  cursor: pointer;
-  transition: all 0.1s;
-}
-li a {
-  color: gray;
-}
-li a:hover {
-  color: #2f80ff;
-}
-li:hover {
-  background: #252627;
-}
-li:hover a {
-  color: #2f80ff;
+    padding: 4px 8px;
+    vertical-align: bottom;
+    cursor: pointer;
+    transition: all 0.1s;
+    a {
+        color: #303e4d;
+    }
+    &:hover {
+        background: #eaebeb;
+    }
 }
 </style>
 
 <template>
-  <section>
-    <div class="head">
-      <a-avatar :size="80" icon="user"/>
-    </div>
-    <ul>
-      <li>
-        <a-icon type="login"/>
-        <a>Logout</a>
-      </li>
-      <li>
-        <a-icon type="file"/>
-        <a>New</a>
-      </li>
-      <li>
-        <a-icon type="sync"/>
-        <a>Sync</a>
-      </li>
-    </ul>
-  </section>
+    <section>
+        <div class="head">
+            <img src="https://avatars3.githubusercontent.com/u/16896067?s=460&v=4" alt>
+        </div>
+        <ul>
+            <li>
+                <a-icon type="login"/>
+                <a>Logout</a>
+            </li>
+            <li>
+                <a-icon type="file"/>
+                <a>New</a>
+            </li>
+            <li>
+                <a-icon type="sync"/>
+                <a>Sync</a>
+            </li>
+        </ul>
+    </section>
 </template>
 
 <script>
 export default {
-  components: {},
-  data() {
-    return {
-      menus: [
-        { title: "Login", Icon: "" },
-        { title: "Login" },
-        { title: "Login" }
-      ]
-    };
-  }
+    components: {},
+    data () {
+        return {
+            menus: [
+                { title: "Login", Icon: "" },
+                { title: "Login" },
+                { title: "Login" }
+            ]
+        };
+    }
 };
 </script>
 

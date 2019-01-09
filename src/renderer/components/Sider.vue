@@ -8,8 +8,8 @@ nav {
 
 <template>
     <nav>
-        <UserPanel/>
-        <TagPanel/>
+        <user-panel/>
+        <tag-panel/>
     </nav>
 </template>
 
