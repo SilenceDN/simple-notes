@@ -11,3 +11,11 @@
 ::-webkit-scrollbar-track {
     border-radius: 0px;
 }
+
+/* markdown css  */
+button,
+html [type='button'],
+[type='reset'],
+[type='submit'] {
+    -webkit-appearance: none;
+}

@@ -15,13 +15,18 @@
 </style>
 
 <template>
-    <li class="side-list-item">{{title}}</li>
+    <li @click="clickHandl" class="side-list-item">{{title}}</li>
 </template>
 <script>
 export default {
     props: {
         title: String | Number,
         path: ''
+    },
+    methods: {
+        clickHandl (e) {
+            this.$emit('click', e)
+        }
     }
 }
 </script>

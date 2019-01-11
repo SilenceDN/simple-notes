@@ -13,14 +13,20 @@ ul {
 
 <template>
     <ul>
-        <side-item v-for="i in 10" :key="i" :title="i"/>
+        <side-item title="markdown测试" @click="click(0)"/>
+        <side-item title="cheatsheet测试" @click="click(1)"/>
     </ul>
 </template>
 
 <script>
 import SideItem from './SideItem'
 export default {
-    components: { SideItem }
+    components: { SideItem },
+    methods: {
+        click (type) {
+            this.$store.state.type = type
+        }
+    }
 };
 </script>
 

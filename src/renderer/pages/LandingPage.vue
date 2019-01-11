@@ -16,9 +16,11 @@
             </a-layout-sider>
             <a-layout :class="{'draging':isDrag}">
                 <a-layout-header>
-                    <div class="head-wrapper">Es6 特性常见写法</div>
+                    <s-header title="Fetch 常见用法"/>
                 </a-layout-header>
-                <a-layout-content>Content</a-layout-content>
+                <a-layout-content>
+                    <s-content/>
+                </a-layout-content>
             </a-layout>
         </a-layout>
     </div>
@@ -28,9 +30,11 @@
 import Sider from "@/components/Sider";
 import Resizer from "@/components/Resizer";
 import SideList from "@/components/SideList";
+import Content from "@/components/Content";
+import Header from "@/components/Header";
 export default {
     name: "landing-page",
-    components: { Sider, Resizer, SideList },
+    components: { Sider, Resizer, SideList, [Content.name]: Content, [Header.name]: Header },
     data () {
         return {
             isDrag: false,
@@ -71,6 +75,7 @@ export default {
     width: 100vw;
     .ant-layout {
         height: 100%;
+        background: #fff;
     }
     .ant-layout-sider {
         transition-delay: 0s;
@@ -87,7 +92,8 @@ export default {
     }
     .ant-layout-content {
         background: #fff;
-        padding: 12px;
+        padding: 0px 12px;
+        flex: 1;
     }
     .ant-layout-header {
         color: #303e4d;
