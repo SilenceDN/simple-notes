@@ -55,6 +55,7 @@ import HyperDown from './lib/hyperdown'
 import hljs from 'mavon-editor/dist/highlightjs/highlight.min.js'
 import fs from 'fs';
 import path from 'path';
+import { mapState } from 'vuex';
 export default {
     data () {
         return {
@@ -62,6 +63,15 @@ export default {
             editMode: false,
             markdown: '',
             html: '',
+        }
+    },
+    computed: {
+        ...mapState(['content'])
+    },
+    watch: {
+        content (val) {
+            this.markdown = val;
+            this.renderMd()
         }
     },
     methods: {
@@ -76,6 +86,7 @@ export default {
             let parsed = parseHtml(md);
             wrapify(parsed[0])
             this.$nextTick(() => {
+                this.$refs.preview.innerHTML = ''
                 this.$refs.preview.appendChild(parsed[0]);
                 let nodes = document.querySelectorAll('pre code');
                 nodes.forEach((block) => {
@@ -83,11 +94,6 @@ export default {
                 })
             })
         }
-    },
-    mounted () {
-        let guideMd = fs.readFileSync(path.join(__dirname, 'guide.md'), 'utf-8')
-        this.markdown = guideMd;
-        this.renderMd()
     }
 }
 </script>

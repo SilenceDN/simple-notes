@@ -16,7 +16,7 @@
             </a-layout-sider>
             <a-layout :class="{'draging':isDrag}">
                 <a-layout-header>
-                    <s-header title="Fetch 常见用法"/>
+                    <s-header/>
                 </a-layout-header>
                 <a-layout-content>
                     <s-content/>
@@ -32,6 +32,7 @@ import Resizer from "@/components/Resizer";
 import SideList from "@/components/SideList";
 import Content from "@/components/Content";
 import Header from "@/components/Header";
+import { mapState } from 'vuex';
 export default {
     name: "landing-page",
     components: { Sider, Resizer, SideList, [Content.name]: Content, [Header.name]: Header },

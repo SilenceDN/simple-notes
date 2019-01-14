@@ -13,18 +13,26 @@ ul {
 
 <template>
     <ul>
-        <side-item title="markdown测试" @click="click(0)"/>
-        <side-item title="cheatsheet测试" @click="click(1)"/>
+        <side-item v-for="(item, i) in list" :key="i" :title="item.title" @click="click(item)"/>
     </ul>
 </template>
 
 <script>
 import SideItem from './SideItem'
+import { mapState, mapActions } from 'vuex';
+import C from '@/lib/constant';
 export default {
     components: { SideItem },
+    computed: {
+        ...mapState(['type', 'articleModelList', 'cheatSheetModleList']),
+        list () {
+            return this.type == C.TYPE.ARTICLE ? this.articleModelList : this.cheatSheetModleList
+        }
+    },
     methods: {
-        click (type) {
-            this.$store.state.type = type
+        ...mapActions(['selectItem']),
+        click (item) {
+            this.selectItem(item)
         }
     }
 };

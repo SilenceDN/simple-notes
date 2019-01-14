@@ -25,20 +25,23 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
     name: 's-header',
-    props: {
-        title: String
-    },
     data () {
         return {
             edit: false,
-            currentValue: this.title
+            currentValue: ''
         }
     },
     computed: {
-        _title () {
-            return this.title
+        ...mapState({
+            title: state => state.gist.title
+        })
+    },
+    watch: {
+        title (val) {
+            this.currentValue = val
         }
     },
     methods: {

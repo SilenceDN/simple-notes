@@ -6,8 +6,9 @@
 
 <template>
     <div class="content-wrapper">
-        <mark-down-editor v-if="type==0"/>
-        <cheat-sheet v-else/>
+        <mark-down-editor v-show="type==0"/>
+        <cheat-sheet v-show="type==1"/>
+        <!-- <img id="placeholder" src="~@/assets/no_data.svg" alt> -->
     </div>
 </template>
 <script>
@@ -20,7 +21,9 @@ export default {
         return {}
     },
     computed: {
-        ...mapState(['type'])
+        ...mapState({
+            type: state => state.gist.type
+        })
     },
     components: {
         MarkDownEditor,

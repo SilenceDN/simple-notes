@@ -7,6 +7,7 @@
     padding: 8px 10px;
     border-radius: 4px;
     transition: all 0.2s;
+    word-break: break-all;
     cursor: pointer;
     &:hover {
         background: @bg;
@@ -15,18 +16,13 @@
 </style>
 
 <template>
-    <li @click="clickHandl" class="side-list-item">{{title}}</li>
+    <li @click="$emit('click')" class="side-list-item">{{title}}</li>
 </template>
 <script>
 export default {
     props: {
         title: String | Number,
         path: ''
-    },
-    methods: {
-        clickHandl (e) {
-            this.$emit('click', e)
-        }
     }
 }
 </script>

@@ -36,17 +36,17 @@ li {
             <img src="https://avatars3.githubusercontent.com/u/16896067?s=460&v=4" alt>
         </div>
         <ul>
-            <li>
-                <a-icon type="login"/>
-                <a>Logout</a>
-            </li>
-            <li>
+            <!-- <li>
                 <a-icon type="file"/>
-                <a>New</a>
-            </li>
+                <a>新建</a>
+            </li>-->
             <li>
                 <a-icon type="sync"/>
-                <a>Sync</a>
+                <a>同步</a>
+            </li>
+            <li>
+                <a-icon type="setting"/>
+                <a>设置</a>
             </li>
         </ul>
     </section>

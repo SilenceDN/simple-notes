@@ -10,61 +10,40 @@
 
 <template>
     <div class="tag-section-list">
-        <tag-section :title="tag.title" :child="tag.child" v-for="tag in tags" :key="tag.title"/>
+        <tag-section
+            title="Articles"
+            @click="tagClick(0)"
+            @itemSelect="handleItemSelect"
+            :child="articleModelList"
+        />
+        <tag-section title="PINNED" :child="pinned"/>
+        <tag-section
+            @click="tagClick(1)"
+            title="CheatSheets"
+            @itemSelect="handleItemSelect"
+            :child="cheatSheetModleList"
+        />
     </div>
 </template>
 
 <script>
 import TagSection from "./TagSection";
+import { mapState, mapActions } from 'vuex';
 export default {
     components: {
         TagSection
     },
-    data () {
-        return {
-            tags: [
-                {
-                    title: "文章列表",
-                    child: [
-                        { text: "深入浅出系列" },
-                        { text: "代码大全" },
-                        { text: "常见错误" },
-                        { text: "Hack技巧" }
-                    ]
-                },
-                {
-                    title: "PINNED",
-                    child: [
-                        { text: "深入浅出系列" },
-                        { text: "代码大全" },
-                        { text: "常见错误" },
-                        { text: "Hack技巧" }
-                    ]
-                },
-                {
-                    title: "CheatSheets",
-                    child: [
-                        { text: "JavaScript" },
-                        { text: "Shell" },
-                        { text: "Erlang" },
-                        { text: "Erlang" },
-                        { text: "Erlang" },
-                        { text: "Erlang" },
-                        { text: "Erlang" },
-                        { text: "Erlang" },
-                        { text: "Erlang" },
-                        { text: "Erlang" },
-                        { text: "Erlang" },
-                        { text: "Erlang" },
-                        { text: "Erlang" },
-                        { text: "Erlang" },
-                        { text: "Erlang" },
-                        { text: "Erlang" },
-                        { text: "Docker" }
-                    ]
-                }
-            ]
-        };
+    computed: {
+        ...mapState(['articleModelList', 'cheatSheetModleList', 'pinned'])
+    },
+    methods: {
+        ...mapActions(['typeChange', 'selectItem']),
+        handleItemSelect (item) {
+            this.selectItem(item)
+        },
+        tagClick (type) {
+            this.typeChange(type)
+        }
     }
 };
 </script>

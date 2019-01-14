@@ -1,15 +1,22 @@
 <template>
-  <div id="app">
-    <router-view></router-view>
-  </div>
+    <div id="app">
+        <router-view></router-view>
+    </div>
 </template>
 
 <script>
-  export default {
-    name: 'simple-note'
-  }
+import { mapActions } from 'vuex'
+export default {
+    name: 'simple-note',
+    methods: {
+        ...mapActions(['init'])
+    },
+    mounted () {
+        this.init()
+    }
+}
 </script>
 
 <style>
-  /* CSS */
+/* CSS */
 </style>

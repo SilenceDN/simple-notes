@@ -17,17 +17,23 @@
     margin-bottom: 6px;
     position: relative;
     padding: 4px 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    span,
+    .anticon {
+        cursor: pointer;
+    }
 }
 .tag-section-content {
-    padding-left: 16px;
     overflow: auto;
     flex: 1;
-    a {
-        cursor: pointer;
-        color: #303e4d;
-        position: relative;
-        opacity: 0.8;
-        transition: all 0.2s;
+    position: relative;
+    div {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
         &::before {
             position: absolute;
             content: "";
@@ -36,10 +42,18 @@
             background: #b9b9b9;
             border-radius: 8px;
             top: 8px;
-            left: -10px;
+            left: 8px;
             cursor: pointer;
             z-index: 1;
         }
+    }
+    a {
+        cursor: pointer;
+        color: #303e4d;
+        position: relative;
+        opacity: 0.8;
+        transition: all 0.2s;
+        margin-left: 16px;
         &:hover {
             opacity: 1;
             color: #303e4d;
@@ -51,10 +65,18 @@
 
 <template>
     <section class="tag-section">
-        <div class="tag-section-title">{{title}}</div>
+        <div class="tag-section-title">
+            <span @click="$emit('click')">{{title}}</span>
+            <a-icon type="plus"/>
+        </div>
         <div class="tag-section-content">
-            <div v-for="(item, index) in child" :key="item.text+index">
-                <a>{{item.text}}</a>
+            <div v-for="(item, index) in child" :key="item.title+index">
+                <a-tooltip placement="topLeft">
+                    <template slot="title">
+                        <span>{{item.title}}</span>
+                    </template>
+                    <a @click="$emit('itemSelect',item)">{{item.title}}</a>
+                </a-tooltip>
             </div>
         </div>
     </section>

@@ -13,6 +13,9 @@
         border-bottom-left-radius: 6px;
         border-bottom-right-radius: 6px;
     }
+    .v-show-content {
+        padding: 25px !important;
+    }
 }
 </style>
 
@@ -39,11 +42,12 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
     data () {
         return {
             edit: false,
-            value: 'hello world',
+            value: '',
             toolbar: {
                 bold: true, // 粗体
                 italic: true, // 斜体
@@ -79,6 +83,14 @@ export default {
                 // subfield: true, // 单双栏模式
                 preview: true, // 预览
             }
+        }
+    },
+    computed: {
+        ...mapState(['content'])
+    },
+    watch: {
+        content (val) {
+            this.value = val
         }
     },
     methods: {
