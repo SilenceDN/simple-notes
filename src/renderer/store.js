@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { getCategoryList, getAvatarUrl } from './lib/data'
+import { initGist, getCategoryList, getAvatarUrl } from './lib/data'
 import C from './lib/constant'
 import GistModel from './lib/gistModel'
 import { splitContent } from './lib/util'
@@ -11,6 +11,8 @@ defaultGist.type = C.TYPE.ARTICLE
 
 export default new Vuex.Store({
     state: {
+        loading: false,
+        blur: false,
         avatarUrl: '',
         gistId: null,
         type: C.TYPE.ARTICLE,
@@ -23,13 +25,7 @@ export default new Vuex.Store({
     },
 
     actions: {
-        typeChange({ commit }, type) {
-            commit('typeChange', type)
-        },
-        selectItem({ commit }, item) {
-            commit('selectItem', item)
-        },
-        init(state, type) {
+        init({ commit }) {
             getCategoryList().then(([articles, cheatSheet]) => {
                 let id = articles.id
                 let articleModelList = [],
@@ -52,13 +48,13 @@ export default new Vuex.Store({
                         cheatSheetModleList.push(gm)
                     })
                 }
-                state.commit('init', {
+                commit('init', {
                     articleModelList,
                     cheatSheetModleList
                 })
             })
             getAvatarUrl(url => {
-                state.avatarUrl = url
+                commit('updateAvatarUrl', url)
             })
         }
     },
@@ -77,6 +73,23 @@ export default new Vuex.Store({
         init(state, { articleModelList, cheatSheetModleList }) {
             state.articleModelList = articleModelList
             state.cheatSheetModleList = cheatSheetModleList
+            state.loading = false
+            state.blur = false
+        },
+        updateTitle(state, title) {
+            state.gist.title = title
+        },
+        updateContent(state, content) {
+            state.gist.content = content
+        },
+        updateAvatarUrl(state, url) {
+            state.avatarUrl = url
+        },
+        changeBlur(state, flag) {
+            state.blur = flag
+        },
+        changeLoading(state, flag) {
+            state.loading = flag
         }
     },
     strict: process.env.NODE_ENV !== 'production'

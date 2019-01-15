@@ -398,7 +398,7 @@ html.WithJs.LoadDone .post-content.-wrapified {
     }
 }
 .h3-section > h3 {
-    margin-top: 8px;
+    /* margin-top: 8px; */
     margin-bottom: 16px;
     white-space: nowrap;
     overflow: hidden;

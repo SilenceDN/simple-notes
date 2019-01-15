@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 export default {
     name: 's-header',
     data () {
@@ -36,7 +36,8 @@ export default {
     },
     computed: {
         ...mapState({
-            title: state => state.gist.title
+            title: state => state.gist.title,
+            gist: 'gist'
         })
     },
     watch: {
@@ -45,8 +46,14 @@ export default {
         }
     },
     methods: {
+        ...mapMutations(['updateTitle']),
         onUpdate () {
-            this.edit = false
+            this.updateTitle(this.currentValue);
+            this.gist.save(() => {
+                this.edit = false;
+            }).catch(() => {
+                this.$message.error("同步保存失败，请重试")
+            })
         },
         getPopupContainer (trigger) {
             return trigger.parentElement

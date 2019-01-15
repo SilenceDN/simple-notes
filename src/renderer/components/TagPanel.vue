@@ -28,7 +28,7 @@
 
 <script>
 import TagSection from "./TagSection";
-import { mapState, mapActions } from 'vuex';
+import { mapState, mapMutations } from 'vuex';
 export default {
     components: {
         TagSection
@@ -37,7 +37,7 @@ export default {
         ...mapState(['articleModelList', 'cheatSheetModleList', 'pinned'])
     },
     methods: {
-        ...mapActions(['typeChange', 'selectItem']),
+        ...mapMutations(['typeChange', 'selectItem']),
         handleItemSelect (item) {
             this.selectItem(item)
         },

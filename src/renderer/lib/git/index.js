@@ -66,6 +66,7 @@ class Api extends Requstable {
 }
 
 let api = token => {
+    if (!token) return
     if (Api.prototype.__instance) {
         return Api.prototype.__instance
     } else {

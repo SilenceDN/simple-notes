@@ -1,4 +1,5 @@
 import fs from 'fs'
+import C from './constant'
 /**
  * 返回用于gist存储的内容
  * @param {*} title 标题
@@ -20,8 +21,16 @@ function splitContent(content) {
     }
 }
 
+function getDescription(type) {
+    let des = {
+        [C.TYPE.ARTICLE]: C.ARTICLE_DES,
+        [C.TYPE.CHEAT_SHEET]: C.CHEAT_SHEET_DES
+    }
+    return des[type]
+}
+
 function readMd(path) {
     return fs.readFileSync(path, 'utf-8')
 }
 
-export { getPostContent, splitContent, readMd }
+export { getPostContent, splitContent, readMd, getDescription }

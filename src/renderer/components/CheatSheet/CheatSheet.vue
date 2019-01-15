@@ -25,7 +25,7 @@
 .control-bar {
     display: flex;
     justify-content: flex-end;
-    padding: 4px 0px;
+    padding: 0px 0px 12px;
 }
 </style>
 
@@ -33,7 +33,15 @@
     <section class="cheat-sheet-wraper">
         <div class="control-bar">
             <a-button-group>
-                <a-button size="small" icon="highlight" type="dashed" @click="controlHandle(true)"></a-button>
+                <a-button size="small" icon="edit" type="dashed" @click="controlHandle(true)"></a-button>
+                <a-button
+                    size="small"
+                    icon="save"
+                    type="dashed"
+                    v-if="hasChanged"
+                    @click="handleSave"
+                    :loading="loading"
+                ></a-button>
                 <a-button size="small" icon="eye" type="dashed" @click="controlHandle(false)"></a-button>
             </a-button-group>
         </div>
@@ -62,15 +70,20 @@ export default {
             parser: new HyperDown(),
             editMode: false,
             markdown: '',
+            oldValue: '',
             html: '',
+            loading: false
         }
     },
     computed: {
-        ...mapState(['content'])
+        ...mapState(['content', 'gist']),
+        hasChanged () {
+            return this.markdown != this.oldValue
+        }
     },
     watch: {
         content (val) {
-            this.markdown = val;
+            this.oldValue = this.markdown = val;
             this.renderMd()
         }
     },
@@ -92,6 +105,16 @@ export default {
                 nodes.forEach((block) => {
                     hljs.highlightBlock(block);
                 })
+            })
+        },
+        handleSave () {
+            this.loading = true
+            this.gist.save().then((res) => {
+                this.oldValue = this.markdown;
+                this.loading = false;
+            }).catch(() => {
+                this.$message.error("同步保存失败，请重试")
+                this.loading = false;
             })
         }
     }

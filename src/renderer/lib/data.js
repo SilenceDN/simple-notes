@@ -6,60 +6,68 @@ import Api from './git'
 import { readMd, getPostContent } from './util'
 
 //test
-setToken('f1e537810ab3fb85cf9b70ce72db07a28bf01acd')
 
 let api = Api(getToken())
 
 const isInit = async () => {
     return api.getAllGist().then(res => {
-        let flag =
+        return (
             res.data.filter(
                 gist =>
                     gist.description == C.ARTICLE_DES ||
                     gist.description == C.CHEAT_SHEET_DES
             ).length == 2
-        if (flag) {
-        }
+        )
     })
 }
 
-const initGist = async () => {
+async function initGist(cb) {
     let is = await isInit()
-    if (!store.get('init') && !is) {
-        api
-            .create({
-                description: C.ARTICLE_DES,
-                public: false,
-                files: {
-                    guide: {
-                        content: getPostContent(
-                            '欢迎使用SimpleNotes-Article',
-                            readMd(path.join(__static, 'article-guide.md'))
-                        )
-                    }
+    let getInitialObj = (des, title, fileName) => {
+        return {
+            description: des,
+            public: false,
+            files: {
+                guide: {
+                    content: getPostContent(
+                        title,
+                        readMd(path.join(__static, fileName))
+                    )
                 }
-            })
-            .then(res => {
-                store.set(C.ARTICLE_KEY, res.data.id)
-            }),
+            }
+        }
+    }
+    if (!store.get('init') && !is) {
+        Promise.all([
             api
-                .create({
-                    description: C.CHEAT_SHEET_DES,
-                    public: false,
-                    files: {
-                        guide: {
-                            content: getPostContent(
-                                '欢迎使用SimpleNotes-CheatSheet',
-                                readMd(
-                                    path.join(__static, 'cheatsheet-guide.md')
-                                )
-                            )
-                        }
-                    }
-                })
+                .create(
+                    getInitialObj(
+                        C.ARTICLE_DES,
+                        '欢迎使用SimpleNotes-Article',
+                        'article-guide.md'
+                    )
+                )
+                .then(res => {
+                    store.set(C.ARTICLE_KEY, res.data.id)
+                }),
+            api
+                .create(
+                    getInitialObj(
+                        C.CHEAT_SHEET_DES,
+                        '欢迎使用SimpleNotes-CheatSheet',
+                        'cheatsheet-guide.md'
+                    )
+                )
                 .then(res => {
                     store.set(C.CHEAT_SHEET_KEY, res.data.id)
                 })
+        ]).then(() => {
+            console.log('init ok')
+            store.set('init', true)
+            cb && cb()
+        })
+    } else {
+        cb && cb()
     }
 }
 
@@ -82,14 +90,16 @@ function getCategoryList() {
         })
     })
 }
-function getAvatarUrl() {
+
+function getAvatarUrl(cb) {
     return api.getUserProfile().then(res => {
-        return res.data.avatar_url
+        cb(res.data.avatar_url)
     })
 }
 
 function setToken(token) {
     store.set(C.TOKEN, token)
+    api = Api(token)
 }
 function getToken() {
     return store.get(C.TOKEN)

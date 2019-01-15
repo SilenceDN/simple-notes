@@ -19,7 +19,7 @@ ul {
 
 <script>
 import SideItem from './SideItem'
-import { mapState, mapActions } from 'vuex';
+import { mapState, mapMutations } from 'vuex';
 import C from '@/lib/constant';
 export default {
     components: { SideItem },
@@ -30,7 +30,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['selectItem']),
+        ...mapMutations(['selectItem']),
         click (item) {
             this.selectItem(item)
         }

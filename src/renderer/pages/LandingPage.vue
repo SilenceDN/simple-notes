@@ -1,5 +1,11 @@
+<style>
+.blur {
+    filter: blur(5px);
+}
+</style>
+
 <template>
-    <div id="wrapper">
+    <div id="wrapper" :class="{'blur':blur}">
         <a-layout>
             <a-layout-sider width="140">
                 <sider/>
@@ -43,6 +49,7 @@ export default {
             siderWidth: 230
         };
     },
+    computed: { ...mapState(['blur']) },
     methods: {
         open (link) {
             this.$electron.shell.openExternal(link);

@@ -1,19 +1,36 @@
 import uuid from 'uuid/v1'
 import Api from './git'
 import * as util from './util'
+import C from './constant'
 const api = Api()
 export default class GistModel {
     id
     type
-    title
-    content
+    _title
+    _content
     fileName
 
     constructor(id, title, content, fileName) {
         this.id = id
-        this.title = title
-        this.content = content
+        this._title = title
+        this._content = content
         this.fileName = fileName
+    }
+
+    get title() {
+        return this._title
+    }
+
+    get content() {
+        return this._content
+    }
+
+    set title(title) {
+        this._title = title
+    }
+
+    set content(content) {
+        this._content = content
     }
 
     generateFileName() {
@@ -21,9 +38,12 @@ export default class GistModel {
     }
 
     save() {
-        api.update(this.id, {
+        return api.update(this.id, {
             files: {
-                [this.fileName]: util.getPostContent(this.title, this.content)
+                description: util.getDescription(this.type),
+                [this.fileName]: {
+                    content: util.getPostContent(this.title, this.content)
+                }
             }
         })
     }

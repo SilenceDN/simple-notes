@@ -24,7 +24,14 @@
     <div>
         <div class="control-bar">
             <a-button-group>
-                <a-button size="small" icon="highlight" type="dashed" @click="controlHandle(true)"></a-button>
+                <a-button size="small" icon="edit" type="dashed" @click="controlHandle(true)"></a-button>
+                <a-button
+                    size="small"
+                    icon="save"
+                    type="dashed"
+                    v-if="hasChanged"
+                    @click="handleSave"
+                ></a-button>
                 <a-button size="small" icon="eye" type="dashed" @click="controlHandle(false)"></a-button>
             </a-button-group>
         </div>
@@ -37,17 +44,21 @@
             :toolbars="toolbar"
             :boxShadow="false"
             :subfield="false"
+            @change="handleChange"
+            @save="handleSave"
         />
     </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 export default {
     data () {
         return {
             edit: false,
             value: '',
+            oldValue: '',
+            loading: false,
             toolbar: {
                 bold: true, // 粗体
                 italic: true, // 斜体
@@ -86,18 +97,37 @@ export default {
         }
     },
     computed: {
-        ...mapState(['content'])
+        ...mapState(['content', 'gist']),
+        hasChanged () {
+            return this.value != this.oldValue
+        }
     },
     watch: {
         content (val) {
-            this.value = val
+            this.oldValue = this.value = val;
         }
     },
     methods: {
+        ...mapMutations(['updateContent']),
         controlHandle (flag) {
             this.edit = flag;
             //更新编辑器为预览状态
             this.$refs.md.s_preview_switch = !flag;
+            this.handleChange()
+        },
+        handleSave () {
+            this.updateContent(this.value)
+            this.loading = true;
+            this.gist.save().then((res) => {
+                this.oldValue = this.value;
+                this.loading = false;
+            }).catch(() => {
+                this.$message.error("同步保存失败，请重试");
+                this.loading = false;
+            })
+        },
+        handleChange () {
+
         }
     },
     mounted () {

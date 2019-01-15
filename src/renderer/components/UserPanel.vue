@@ -4,6 +4,7 @@
     padding: 10px 0;
     img {
         width: 90px;
+        border-radius: 50%;
     }
 }
 section {
@@ -33,7 +34,7 @@ li {
 <template>
     <section>
         <div class="head">
-            <img src="https://avatars3.githubusercontent.com/u/16896067?s=460&v=4" alt>
+            <img :src="avatarUrl" alt>
         </div>
         <ul>
             <!-- <li>
@@ -53,6 +54,7 @@ li {
 </template>
 
 <script>
+import { mapState } from 'vuex';
 export default {
     components: {},
     data () {
@@ -63,6 +65,9 @@ export default {
                 { title: "Login" }
             ]
         };
+    },
+    computed: {
+        ...mapState(['avatarUrl'])
     }
 };
 </script>
