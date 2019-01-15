@@ -34,7 +34,7 @@ li {
 <template>
     <section>
         <div class="head">
-            <img :src="avatarUrl" alt>
+            <img @mousedown.prevent :src="avatarUrl" alt>
         </div>
         <ul>
             <!-- <li>

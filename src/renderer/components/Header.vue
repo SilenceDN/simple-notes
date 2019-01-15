@@ -13,10 +13,13 @@
         cursor: pointer;
     }
 }
+.hide {
+    opacity: 0;
+}
 </style>
 
 <template>
-    <div class="head-wrapper">
+    <div class="head-wrapper" :class="{'hide':!show}">
         <span @click="edit=true" v-show="!edit">{{currentValue}}</span>
         <a-input v-show="edit" v-model="currentValue">
             <a-icon slot="addonAfter" @click="onUpdate" type="check"/>
@@ -38,7 +41,10 @@ export default {
         ...mapState({
             title: state => state.gist.title,
             gist: 'gist'
-        })
+        }),
+        show () {
+            return !!this.gist.fileName
+        }
     },
     watch: {
         title (val) {
