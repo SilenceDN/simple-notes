@@ -13,7 +13,7 @@ ul {
 
 <template>
     <ul>
-        <side-item v-for="(item, i) in list" :key="i" :title="item.title" @click="click(item)"/>
+        <side-item :active="gist.fileName==item.fileName" v-for="(item, i) in list" :key="i" :title="item.title" @click="click(item)"/>
     </ul>
 </template>
 
@@ -24,7 +24,7 @@ import C from '@/lib/constant';
 export default {
     components: { SideItem },
     computed: {
-        ...mapState(['type', 'articleModelList', 'cheatSheetModleList']),
+        ...mapState(['gist','type', 'articleModelList', 'cheatSheetModleList']),
         list () {
             return this.type == C.TYPE.ARTICLE ? this.articleModelList : this.cheatSheetModleList
         }

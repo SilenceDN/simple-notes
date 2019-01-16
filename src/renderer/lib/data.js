@@ -84,9 +84,9 @@ function getCategoryList() {
     })
 }
 
-function getAvatarUrl(cb) {
+function getUserInfo(cb) {
     return api.getUserProfile().then(res => {
-        cb(res.data.avatar_url)
+        cb({ avatar: res.data.avatar_url, userName: res.data.login })
     })
 }
 
@@ -98,4 +98,4 @@ function getToken() {
     return store.get(C.TOKEN)
 }
 
-export { initGist, setToken, getToken, getCategoryList, getAvatarUrl }
+export { initGist, setToken, getToken, getCategoryList, getUserInfo }

@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { initGist, getCategoryList, getAvatarUrl } from './lib/data'
+import { getCategoryList, getUserInfo } from './lib/data'
 import C from './lib/constant'
 import GistModel from './lib/gistModel'
 import { splitContent } from './lib/util'
@@ -16,6 +16,7 @@ export default new Vuex.Store({
         loading: false,
         blur: false,
         avatarUrl: '',
+        userName: '',
         type: C.TYPE.ARTICLE,
         title: '',
         content: '',
@@ -55,8 +56,8 @@ export default new Vuex.Store({
                     cheatSheetModleList
                 })
             })
-            getAvatarUrl(url => {
-                commit('updateAvatarUrl', url)
+            getUserInfo(info => {
+                commit('updateUserInfo', info)
             })
         }
     },
@@ -84,8 +85,9 @@ export default new Vuex.Store({
         updateContent(state, content) {
             state.gist.content = content
         },
-        updateAvatarUrl(state, url) {
-            state.avatarUrl = url
+        updateUserInfo(state, { avatar, userName }) {
+            state.avatarUrl = avatar
+            state.userName = userName
         },
         changeBlur(state, flag) {
             state.blur = flag

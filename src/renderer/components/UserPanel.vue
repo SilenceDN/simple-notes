@@ -1,10 +1,38 @@
+<style>
+.box {
+    -webkit-transition: 0.5s all ease;
+    transition: 0.5s all ease;
+    border: 0 solid transparent;
+    -webkit-box-sizing: border-box;
+    background: rgba(0, 0, 0, 0.08);
+    box-sizing: border-box;
+    border-radius: 50%;
+    opacity: 0.7;
+    --dx: calc(var(--size) - var(--x));
+    --dy: calc(var(--size) - var(--y));
+}
+.box:hover {
+    opacity: 1;
+    cursor: pointer;
+    border: calc(2px + 0.85vw) solid rgba(255, 255, 255, 0.5);
+    -webkit-transition: 0.5s background-color ease, 0.2s border ease;
+    transition: 0.5s background-color ease, 0.2s border ease;
+
+    border-radius: calc(var(--x) / var(--size) * 100%)
+        calc(var(--dx) / var(--size) * 100%)
+        calc(var(--dx) / var(--size) * 100%) calc(var(--x) / var(--size) * 100%) /
+        calc(var(--y) / var(--size) * 100%) calc(var(--y) / var(--size) * 100%)
+        calc(var(--dy) / var(--size) * 100%)
+        calc(var(--dy) / var(--size) * 100%);
+}
+</style>
+
 <style lang="less" scoped>
 .head {
     text-align: center;
     padding: 10px 0;
     img {
         width: 90px;
-        border-radius: 50%;
     }
 }
 section {
@@ -45,7 +73,15 @@ li {
 <template>
     <section>
         <div class="head">
-            <img @mousedown.prevent :src="avatarUrl" alt>
+            <img
+                class="box"
+                ref="img"
+                @mousedown.prevent
+                @mousemove="moveHandle"
+                :src="avatarUrl"
+                alt
+            >
+            <div>{{userName}}</div>
         </div>
         <ul>
             <!-- <li>
@@ -80,7 +116,19 @@ export default {
         };
     },
     computed: {
-        ...mapState(['avatarUrl'])
+        ...mapState(['avatarUrl', 'userName'])
+    },
+    methods: {
+        moveHandle (e) {
+            let box = this.$refs.img
+            var size = parseInt(getComputedStyle(box).width)
+            var x = size * 0.3 * 0.7 + 0.7 * e.offsetX
+            var y = size * 0.3 * 0.7 + 0.7 * e.offsetY
+
+            box.style.setProperty('--x', x)
+            box.style.setProperty('--y', y)
+            box.style.setProperty('--size', size)
+        }
     },
     mounted () {
         on('sync', (flag) => {

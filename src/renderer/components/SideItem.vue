@@ -12,17 +12,20 @@
     &:hover {
         background: @bg;
     }
+    &.active {
+        background: @bg;
+    }
 }
 </style>
 
 <template>
-    <li @click="$emit('click')" class="side-list-item">{{title}}</li>
+    <li @click="$emit('click')" class="side-list-item" :class="{'active':active}">{{title}}</li>
 </template>
 <script>
 export default {
     props: {
         title: String | Number,
-        path: ''
+        active: false
     }
 }
 </script>
