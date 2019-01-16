@@ -4,6 +4,8 @@ import { initGist, getCategoryList, getAvatarUrl } from './lib/data'
 import C from './lib/constant'
 import GistModel from './lib/gistModel'
 import { splitContent } from './lib/util'
+import store from 'store'
+import uuidv1 from 'uuid/v1'
 Vue.use(Vuex)
 
 let defaultGist = new GistModel('', '', '', '')
@@ -14,7 +16,6 @@ export default new Vuex.Store({
         loading: false,
         blur: false,
         avatarUrl: '',
-        gistId: null,
         type: C.TYPE.ARTICLE,
         title: '',
         content: '',
@@ -27,10 +28,10 @@ export default new Vuex.Store({
     actions: {
         init({ commit }) {
             getCategoryList().then(([articles, cheatSheet]) => {
-                let id = articles.id
                 let articleModelList = [],
                     cheatSheetModleList = []
                 if (articles && articles.files) {
+                    let id = articles.id
                     Object.keys(articles.files).forEach(fileName => {
                         let file = articles.files[fileName]
                         let { title, content } = splitContent(file.content)
@@ -40,6 +41,7 @@ export default new Vuex.Store({
                     })
                 }
                 if (cheatSheet && cheatSheet.files) {
+                    let id = cheatSheet.id
                     Object.keys(cheatSheet.files).forEach(fileName => {
                         let file = cheatSheet.files[fileName]
                         let { title, content } = splitContent(file.content)
@@ -90,6 +92,23 @@ export default new Vuex.Store({
         },
         changeLoading(state, flag) {
             state.loading = flag
+        },
+        createGist(state, type) {
+            let key = {
+                [C.TYPE.ARTICLE]: C.ARTICLE_KEY,
+                [C.TYPE.CHEAT_SHEET]: C.CHEAT_SHEET_KEY
+            }
+            let id = store.get(key[type])
+            let gist = new GistModel(id, '未命名标题', '', `${uuidv1()}.md`)
+            gist.type = type
+            state.gist = gist
+            state.type = type
+            state.title = gist.title
+            state.content = gist.content
+            ;(type == C.TYPE.ARTICLE
+                ? state.articleModelList
+                : state.cheatSheetModleList
+            ).push(gist)
         }
     },
     strict: process.env.NODE_ENV !== 'production'

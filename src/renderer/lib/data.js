@@ -2,14 +2,14 @@ import fs from 'fs'
 import path from 'path'
 import store from 'store'
 import C from './constant'
-import Api from './git'
+import apiInstance from './git'
 import { readMd, getPostContent } from './util'
 
 //test
-
-let api = Api(getToken())
+let api = apiInstance()
 
 const isInit = async () => {
+    console.log(api)
     return api.getAllGist().then(res => {
         return (
             res.data.filter(
@@ -28,7 +28,7 @@ async function initGist(cb) {
             description: des,
             public: false,
             files: {
-                guide: {
+                'guide.md': {
                     content: getPostContent(
                         title,
                         readMd(path.join(__static, fileName))
@@ -39,34 +39,26 @@ async function initGist(cb) {
     }
     if (!store.get('init') && !is) {
         Promise.all([
-            api
-                .create(
-                    getInitialObj(
-                        C.ARTICLE_DES,
-                        '欢迎使用SimpleNotes-Article',
-                        'article-guide.md'
-                    )
+            api.create(
+                getInitialObj(
+                    C.ARTICLE_DES,
+                    '欢迎使用SimpleNotes-Article',
+                    'article-guide.md'
                 )
-                .then(res => {
-                    store.set(C.ARTICLE_KEY, res.data.id)
-                }),
-            api
-                .create(
-                    getInitialObj(
-                        C.CHEAT_SHEET_DES,
-                        '欢迎使用SimpleNotes-CheatSheet',
-                        'cheatsheet-guide.md'
-                    )
+            ),
+            api.create(
+                getInitialObj(
+                    C.CHEAT_SHEET_DES,
+                    '欢迎使用SimpleNotes-CheatSheet',
+                    'cheatsheet-guide.md'
                 )
-                .then(res => {
-                    store.set(C.CHEAT_SHEET_KEY, res.data.id)
-                })
+            )
         ]).then(() => {
-            console.log('init ok')
             store.set('init', true)
             cb && cb()
         })
     } else {
+        store.set('init', true)
         cb && cb()
     }
 }
@@ -81,7 +73,8 @@ function getCategoryList() {
             gist.description == C.ARTICLE_DES && (articles = gist)
             gist.description == C.CHEAT_SHEET_DES && (cheatsheet = gist)
         })
-
+        store.set(C.ARTICLE_KEY, articles.id)
+        store.set(C.CHEAT_SHEET_KEY, cheatsheet.id)
         return Promise.all([
             api.getSingleGist(articles.id),
             api.getSingleGist(cheatsheet.id)
@@ -99,7 +92,7 @@ function getAvatarUrl(cb) {
 
 function setToken(token) {
     store.set(C.TOKEN, token)
-    api = Api(token)
+    api = apiInstance()
 }
 function getToken() {
     return store.get(C.TOKEN)

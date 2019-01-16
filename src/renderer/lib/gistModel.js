@@ -1,8 +1,6 @@
 import uuid from 'uuid/v1'
-import Api from './git'
+import apiInstance from './git'
 import * as util from './util'
-import C from './constant'
-const api = Api()
 export default class GistModel {
     id
     type
@@ -38,9 +36,10 @@ export default class GistModel {
     }
 
     save() {
+        let api = apiInstance()
         return api.update(this.id, {
+            description: util.getDescription(this.type),
             files: {
-                description: util.getDescription(this.type),
                 [this.fileName]: {
                     content: util.getPostContent(this.title, this.content)
                 }
@@ -49,6 +48,7 @@ export default class GistModel {
     }
 
     delete() {
+        let api = apiInstance()
         api.deleteFile(this.id, this.fileName)
     }
 }

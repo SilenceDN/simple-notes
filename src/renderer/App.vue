@@ -15,7 +15,7 @@
         <a-spin tip="Loading..." :spinning="loading">
             <router-view></router-view>
         </a-spin>
-        <guide :show="guide"/>
+        <guide :show.sync="guide"/>
     </div>
 </template>
 

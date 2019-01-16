@@ -29,6 +29,17 @@ li {
         background: #eaebeb;
     }
 }
+.sync.anticon {
+    animation: circle 1.5s infinite linear;
+}
+@keyframes circle {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
 </style>
 
 <template>
@@ -42,7 +53,7 @@ li {
                 <a>新建</a>
             </li>-->
             <li>
-                <a-icon type="sync"/>
+                <a-icon type="sync" :class="{'sync':sync}"/>
                 <a>同步</a>
             </li>
             <li>
@@ -55,6 +66,7 @@ li {
 
 <script>
 import { mapState } from 'vuex';
+import { on } from '@/lib/bus';
 export default {
     components: {},
     data () {
@@ -63,11 +75,17 @@ export default {
                 { title: "Login", Icon: "" },
                 { title: "Login" },
                 { title: "Login" }
-            ]
+            ],
+            sync: false
         };
     },
     computed: {
         ...mapState(['avatarUrl'])
+    },
+    mounted () {
+        on('sync', (flag) => {
+            this.sync = flag
+        })
     }
 };
 </script>

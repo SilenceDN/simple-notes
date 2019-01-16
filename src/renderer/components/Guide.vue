@@ -68,9 +68,9 @@
             </template>
         </div>
         <div class="steps-action">
-            <a-button v-show="step > 0" @click="next(-1)">上一步</a-button>
-            <a-button v-show="step < 2" type="primary" @click="next(1)">下一步</a-button>
-            <a-button v-show="step == 2" type="primary" @click="done">GO!</a-button>
+            <a-button v-show="step > 0" @click="next(-1)" :disabled="loading">上一步</a-button>
+            <a-button v-show="step < 2" type="primary" @click="next(1)" :disabled="loading">下一步</a-button>
+            <a-button v-show="step == 2" type="primary" @click="done" :loading="loading">GO!</a-button>
         </div>
     </div>
 </template>
@@ -84,6 +84,7 @@ export default {
     },
     data () {
         return {
+            loading: false,
             token: '',
             step: 0
         }
@@ -98,8 +99,10 @@ export default {
         },
         done () {
             setToken(this.token.trim())
+            this.loading = true;
             initGist(() => {
                 this.$message.success("初始化成功")
+                this.loading = false;
                 this.$emit('update:show', false)
                 this.init()
             })

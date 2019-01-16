@@ -13,13 +13,15 @@
         <tag-section
             title="Articles"
             @click="tagClick(0)"
+            @create="createHandle(0)"
             @itemSelect="handleItemSelect"
             :child="articleModelList"
         />
         <tag-section title="PINNED" :child="pinned"/>
         <tag-section
-            @click="tagClick(1)"
             title="CheatSheets"
+            @click="tagClick(1)"
+            @create="createHandle(1)"
             @itemSelect="handleItemSelect"
             :child="cheatSheetModleList"
         />
@@ -37,12 +39,15 @@ export default {
         ...mapState(['articleModelList', 'cheatSheetModleList', 'pinned'])
     },
     methods: {
-        ...mapMutations(['typeChange', 'selectItem']),
+        ...mapMutations(['typeChange', 'selectItem', 'createGist']),
         handleItemSelect (item) {
             this.selectItem(item)
         },
         tagClick (type) {
             this.typeChange(type)
+        },
+        createHandle (type) {
+            this.createGist(type)
         }
     }
 };

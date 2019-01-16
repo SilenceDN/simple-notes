@@ -63,7 +63,8 @@ import HyperDown from './lib/hyperdown'
 import hljs from 'mavon-editor/dist/highlightjs/highlight.min.js'
 import fs from 'fs';
 import path from 'path';
-import { mapState } from 'vuex';
+import { mapState, mapMutations } from 'vuex';
+import { emit } from '@/lib/bus';
 export default {
     data () {
         return {
@@ -85,9 +86,13 @@ export default {
         content (val) {
             this.oldValue = this.markdown = val;
             this.renderMd()
+        },
+        loading (val) {
+            emit('sync', val)
         }
     },
     methods: {
+        ...mapMutations(['updateContent']),
         controlHandle (flag) {
             this.editMode = flag;
             if (!flag) {
@@ -109,6 +114,7 @@ export default {
         },
         handleSave () {
             this.loading = true
+            this.updateContent(this.markdown)
             this.gist.save().then((res) => {
                 this.oldValue = this.markdown;
                 this.loading = false;

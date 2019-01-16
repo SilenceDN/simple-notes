@@ -31,6 +31,7 @@
                     type="dashed"
                     v-if="hasChanged"
                     @click="handleSave"
+                    :loading="loading"
                 ></a-button>
                 <a-button size="small" icon="eye" type="dashed" @click="controlHandle(false)"></a-button>
             </a-button-group>
@@ -52,6 +53,7 @@
 
 <script>
 import { mapState, mapMutations } from 'vuex'
+import { emit } from '@/lib/bus'
 export default {
     data () {
         return {
@@ -105,6 +107,9 @@ export default {
     watch: {
         content (val) {
             this.oldValue = this.value = val;
+        },
+        loading (val) {
+            emit('sync', val)
         }
     },
     methods: {

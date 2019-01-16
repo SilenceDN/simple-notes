@@ -31,6 +31,7 @@
     flex: 1;
     position: relative;
     div {
+        position: relative;
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
@@ -67,7 +68,7 @@
     <section class="tag-section">
         <div class="tag-section-title">
             <span @click="$emit('click')">{{title}}</span>
-            <a-icon type="plus"/>
+            <a-icon type="plus" @click="$emit('create')"/>
         </div>
         <div class="tag-section-content">
             <div v-for="(item, index) in child" :key="item.title+index">

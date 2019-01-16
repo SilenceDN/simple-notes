@@ -2,7 +2,8 @@ import Requstable from './Requestable'
 
 const token = 'f1e537810ab3fb85cf9b70ce72db07a28bf01acd'
 const apiBase = 'https://api.github.com'
-
+import C from '../constant'
+import store from 'store'
 class Api extends Requstable {
     constructor(token) {
         super({ token }, apiBase)
@@ -65,7 +66,8 @@ class Api extends Requstable {
     }
 }
 
-let api = token => {
+let apiInstance = () => {
+    let token = store.get(C.TOKEN)
     if (!token) return
     if (Api.prototype.__instance) {
         return Api.prototype.__instance
@@ -75,4 +77,4 @@ let api = token => {
         return instance
     }
 }
-export default api
+export default apiInstance

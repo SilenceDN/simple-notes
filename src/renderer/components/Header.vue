@@ -19,10 +19,10 @@
 </style>
 
 <template>
-    <div class="head-wrapper" :class="{'hide':!show}">
-        <span @click="edit=true" v-show="!edit">{{currentValue}}</span>
-        <a-input v-show="edit" v-model="currentValue">
-            <a-icon slot="addonAfter" @click="onUpdate" type="check"/>
+    <div class="head-wrapper" @click="edit=true" :class="{'hide':!show}">
+        <span v-show="!edit">{{currentValue}}</span>
+        <a-input v-show="edit" v-model="currentValue" @keyup.enter="onUpdate">
+            <a-icon slot="addonAfter" @click.stop="onUpdate" type="check"/>
         </a-input>
     </div>
 </template>
@@ -55,7 +55,7 @@ export default {
         ...mapMutations(['updateTitle']),
         onUpdate () {
             this.updateTitle(this.currentValue);
-            this.gist.save(() => {
+            this.gist.save().then(() => {
                 this.edit = false;
             }).catch(() => {
                 this.$message.error("同步保存失败，请重试")
