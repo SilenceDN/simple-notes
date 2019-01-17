@@ -67,17 +67,21 @@
 <template>
     <section class="tag-section">
         <div class="tag-section-title">
-            <span @click="$emit('click')">{{title}}</span>
-            <a-icon type="plus" @click="$emit('create')"/>
+            <span
+                class="tooltipped tooltipped-ne"
+                :aria-label="getLabel(title)"
+                @click="$emit('click')"
+            >{{title}}</span>
+            <a-icon
+                class="tooltipped tooltipped-e"
+                aria-label="新建"
+                type="plus"
+                @click="$emit('create')"
+            />
         </div>
         <div class="tag-section-content">
             <div v-for="(item, index) in child" :key="item.title+index">
-                <a-tooltip placement="topLeft">
-                    <template slot="title">
-                        <span>{{item.title}}</span>
-                    </template>
-                    <a @click="$emit('itemSelect',item)">{{item.title}}</a>
-                </a-tooltip>
+                <a :title="item.title" @click="$emit('itemSelect',item)">{{item.title}}</a>
             </div>
         </div>
     </section>
@@ -88,6 +92,15 @@ export default {
     props: {
         title: String,
         child: Array
+    },
+    methods: {
+        getLabel (text) {
+            return {
+                "Articles": "长篇markdown",
+                "PINNED": "快速链接",
+                "CheatSheets": "代码片段"
+            }[text]
+        }
     }
 };
 </script>

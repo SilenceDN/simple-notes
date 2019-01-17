@@ -44,6 +44,7 @@ export default {
         this.changeLoading(true)
         if (!store.get('init')) {
             this.guide = true;
+            this.changeLoading(false)
         } else {
             this.init()
         }

@@ -6,6 +6,7 @@ import GistModel from './lib/gistModel'
 import { splitContent } from './lib/util'
 import store from 'store'
 import uuidv1 from 'uuid/v1'
+import { emit } from './lib/bus'
 Vue.use(Vuex)
 
 let defaultGist = new GistModel('', '', '', '')
@@ -111,6 +112,7 @@ export default new Vuex.Store({
                 ? state.articleModelList
                 : state.cheatSheetModleList
             ).push(gist)
+            emit('newFile')
         }
     },
     strict: process.env.NODE_ENV !== 'production'

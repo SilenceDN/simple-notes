@@ -1,32 +1,6 @@
-<style>
+<style lang="less">
 @import url("./sheet.css");
-.code-input {
-    margin: 0;
-    color: #2c3e50;
-    resize: none;
-    width: 100%;
-    height: 100%;
-    padding: 1rem;
-    border: none;
-    font-size: 15px;
-    line-height: 1.5;
-    background: transparent;
-    white-space: pre-wrap;
-    word-wrap: break-word;
-}
-.code-input-focus {
-    outline: none;
-    background: #fbfbfb;
-    border-radius: 6px;
-}
-.cheat-sheet-wraper {
-    height: 100%;
-}
-.control-bar {
-    display: flex;
-    justify-content: flex-end;
-    padding: 0px 0px 12px;
-}
+@import url("./index.less");
 </style>
 
 <template>
@@ -46,13 +20,13 @@
             </a-button-group>
         </div>
         <textarea
-            v-if="editMode"
+            v-show="editMode"
             ref="editor"
             :class="{'code-input-focus':editMode}"
             class="code-input"
             v-model="markdown"
         ></textarea>
-        <article v-else ref="preview"></article>
+        <article v-show="!editMode" ref="preview"></article>
     </section>
 </template>
 
@@ -65,6 +39,8 @@ import fs from 'fs';
 import path from 'path';
 import { mapState, mapMutations } from 'vuex';
 import { emit } from '@/lib/bus';
+import ClipboardJS from 'clipboard';
+import { htmlButton, getSiteStyle } from './lib/util';
 export default {
     data () {
         return {
@@ -110,7 +86,45 @@ export default {
                 nodes.forEach((block) => {
                     hljs.highlightBlock(block);
                 })
+                this.renderCopy()
             })
+        },
+        renderCopy () {
+            const siteStyle = getSiteStyle();
+            // Scan for code snippets and append buttons
+            const snippets = document.querySelectorAll('.cheat-sheet-wraper pre');
+            snippets.forEach((snippet) => {
+                const parent = snippet.parentNode;
+                const wrapper = document.createElement('div');
+                parent.replaceChild(wrapper, snippet);
+                wrapper.appendChild(snippet);
+                wrapper.classList.add('codecopy', `codecopy-${siteStyle}`);
+                wrapper.firstChild.insertAdjacentHTML('beforebegin', htmlButton);
+            });
+
+            // Add copy to clipboard functionality and user feedback
+            const clipboard = new ClipboardJS('.codecopy-btn', {
+                target: (trigger) => {
+                    return trigger.parentNode;
+                }
+            });
+            clipboard.on('success', (e) => {
+                e.trigger.setAttribute('aria-label', 'Copied!');
+                e.clearSelection();
+            });
+            // Replace tooltip message when mouse leaves button
+            // and prevent page refresh after click button
+            const btns = document.querySelectorAll('.codecopy-btn');
+            btns.forEach((btn) => {
+                btn.addEventListener('mouseleave', (e) => {
+                    e.target.setAttribute('aria-label', 'Copy to clipboard');
+                    e.target.blur();
+                });
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault()
+                });
+            });
+
         },
         handleSave () {
             this.loading = true
@@ -123,6 +137,22 @@ export default {
                 this.loading = false;
             })
         }
+    },
+    mounted () {
+        this.$refs.editor.addEventListener('keydown', function (e) {
+            if (e.keyCode == 9) {
+                e.preventDefault();
+                var indent = '    ';
+                var start = this.selectionStart;
+                var end = this.selectionEnd;
+                var selected = window.getSelection().toString();
+                selected = indent + selected.replace(/\n/g, '\n' + indent);
+                this.value = this.value.substring(0, start) + selected
+                    + this.value.substring(end);
+                this.setSelectionRange(start + indent.length, start
+                    + selected.length);
+            }
+        })
     }
 }
 </script>

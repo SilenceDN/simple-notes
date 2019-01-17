@@ -24,8 +24,17 @@
     <div>
         <div class="control-bar">
             <a-button-group>
-                <a-button size="small" icon="edit" type="dashed" @click="controlHandle(true)"></a-button>
                 <a-button
+                    class="tooltipped tooltipped-n"
+                    aria-label="编辑模式"
+                    size="small"
+                    icon="edit"
+                    type="dashed"
+                    @click="controlHandle(true)"
+                ></a-button>
+                <a-button
+                    class="tooltipped tooltipped-n"
+                    aria-label="保存"
                     size="small"
                     icon="save"
                     type="dashed"
@@ -33,7 +42,14 @@
                     @click="handleSave"
                     :loading="loading"
                 ></a-button>
-                <a-button size="small" icon="eye" type="dashed" @click="controlHandle(false)"></a-button>
+                <a-button
+                    class="tooltipped tooltipped-w"
+                    aria-label="预览模式"
+                    size="small"
+                    icon="eye"
+                    type="dashed"
+                    @click="controlHandle(false)"
+                ></a-button>
             </a-button-group>
         </div>
         <mavon-editor

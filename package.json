@@ -53,6 +53,7 @@
     "dependencies": {
         "ant-design-vue": "^1.2.3",
         "axios": "^0.18.0",
+        "clipboard": "^2.0.4",
         "debug": "^4.1.1",
         "dom101": "^2.2.1",
         "js-base64": "^2.5.0",
