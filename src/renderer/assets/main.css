@@ -20,6 +20,14 @@ html [type='button'],
     -webkit-appearance: none;
 }
 
+/*ant modal z-index*/
+.ant-modal-mask {
+    z-index: 1999;
+}
+.ant-modal-wrap {
+    z-index: 2000;
+}
+
 /* tooltipd from primer */
 .tooltipped {
     position: relative;

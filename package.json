@@ -1,5 +1,5 @@
 {
-    "name": "simple-note",
+    "name": "simple-notes",
     "version": "0.0.1",
     "author": "citizenl <citizenl@126.com>",
     "description": "simple notes for code",
@@ -17,8 +17,8 @@
         "postinstall": ""
     },
     "build": {
-        "productName": "simple-note",
-        "appId": "com.citizenl.note",
+        "productName": "simple-notes",
+        "appId": "com.citizenl.notes",
         "directories": {
             "output": "build"
         },
@@ -44,7 +44,11 @@
             "icon": "build/icons/icon.icns"
         },
         "win": {
-            "icon": "build/icons/icon.ico"
+            "target": [
+                "nsis"
+            ],
+            "icon": "build/icons/icon.ico",
+            "verifyUpdateCodeSignature": false
         },
         "linux": {
             "icon": "build/icons"
@@ -85,6 +89,7 @@
         "electron-builder": "^20.19.2",
         "electron-debug": "^1.5.0",
         "electron-devtools-installer": "^2.2.4",
+        "electron-updater": "^4.0.6",
         "file-loader": "^1.1.11",
         "html-webpack-plugin": "^3.2.0",
         "less": "^3.9.0",

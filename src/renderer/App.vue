@@ -12,6 +12,7 @@
 
 <template>
     <div id="app">
+        <tool-bar/>
         <a-spin tip="Loading..." :spinning="loading">
             <router-view></router-view>
         </a-spin>
@@ -23,9 +24,10 @@
 import { mapActions, mapMutations, mapState } from 'vuex'
 import store from 'store'
 import Guide from '@/components/Guide'
+import ToolBar from '@/components/ToolBar'
 export default {
     name: 'simple-note',
-    components: { Guide },
+    components: { Guide, ToolBar },
     data () {
         return {
             guide: false
@@ -39,7 +41,6 @@ export default {
         ...mapState(['loading', 'blur'])
     },
     mounted () {
-        // this.init()
         this.changeBlur(true)
         this.changeLoading(true)
         if (!store.get('init')) {

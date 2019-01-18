@@ -39,16 +39,6 @@ class Api extends Requstable {
     }
 
     /**
-     * 删除gist中的单个file
-     * @param {*} id
-     * @param {*} fileName
-     * @param {*} cb
-     */
-    deleteFile(id, fileName, cb) {
-        return this.update(id, { files: { [fileName]: null } }, cb)
-    }
-
-    /**
      * 更新gist
      * @param {*} id
      * @param {*} gist

@@ -38,7 +38,8 @@ import hljs from 'mavon-editor/dist/highlightjs/highlight.min.js'
 import fs from 'fs';
 import path from 'path';
 import { mapState, mapMutations } from 'vuex';
-import { emit } from '@/lib/bus';
+import { emit, on } from '@/lib/bus';
+import C from '@/lib/constant';
 import ClipboardJS from 'clipboard';
 import { htmlButton, getSiteStyle } from './lib/util';
 export default {
@@ -65,7 +66,12 @@ export default {
         },
         loading (val) {
             emit('sync', val)
-        }
+        },
+        gist (value, old) {
+            if (value != old) {
+                this.controlHandle(false)
+            }
+        },
     },
     methods: {
         ...mapMutations(['updateContent']),
@@ -141,6 +147,7 @@ export default {
     mounted () {
         this.$refs.editor.addEventListener('keydown', function (e) {
             if (e.keyCode == 9) {
+                console.log(this)
                 e.preventDefault();
                 var indent = '    ';
                 var start = this.selectionStart;
@@ -151,6 +158,11 @@ export default {
                     + this.value.substring(end);
                 this.setSelectionRange(start + indent.length, start
                     + selected.length);
+            }
+        })
+        on('newFile', (type) => {
+            if (type == C.TYPE.CHEAT_SHEET) {
+                this.$nextTick(() => this.controlHandle(true))
             }
         })
     }

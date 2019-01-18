@@ -24,17 +24,8 @@
     <div>
         <div class="control-bar">
             <a-button-group>
+                <a-button size="small" icon="edit" type="dashed" @click="controlHandle(true)"></a-button>
                 <a-button
-                    class="tooltipped tooltipped-n"
-                    aria-label="编辑模式"
-                    size="small"
-                    icon="edit"
-                    type="dashed"
-                    @click="controlHandle(true)"
-                ></a-button>
-                <a-button
-                    class="tooltipped tooltipped-n"
-                    aria-label="保存"
                     size="small"
                     icon="save"
                     type="dashed"
@@ -42,14 +33,7 @@
                     @click="handleSave"
                     :loading="loading"
                 ></a-button>
-                <a-button
-                    class="tooltipped tooltipped-w"
-                    aria-label="预览模式"
-                    size="small"
-                    icon="eye"
-                    type="dashed"
-                    @click="controlHandle(false)"
-                ></a-button>
+                <a-button size="small" icon="eye" type="dashed" @click="controlHandle(false)"></a-button>
             </a-button-group>
         </div>
         <mavon-editor
@@ -61,7 +45,6 @@
             :toolbars="toolbar"
             :boxShadow="false"
             :subfield="false"
-            @change="handleChange"
             @save="handleSave"
         />
     </div>
@@ -69,7 +52,8 @@
 
 <script>
 import { mapState, mapMutations } from 'vuex'
-import { emit } from '@/lib/bus'
+import { emit, on } from '@/lib/bus'
+import C from '@/lib/constant'
 export default {
     data () {
         return {
@@ -121,6 +105,11 @@ export default {
         }
     },
     watch: {
+        gist (value, old) {
+            if (value != old) {
+                this.controlHandle(false)
+            }
+        },
         content (val) {
             this.oldValue = this.value = val;
         },
@@ -134,7 +123,6 @@ export default {
             this.edit = flag;
             //更新编辑器为预览状态
             this.$refs.md.s_preview_switch = !flag;
-            this.handleChange()
         },
         handleSave () {
             this.updateContent(this.value)
@@ -146,14 +134,17 @@ export default {
                 this.$message.error("同步保存失败，请重试");
                 this.loading = false;
             })
-        },
-        handleChange () {
-
         }
     },
     mounted () {
         let md = this.$refs.md;
         md.s_preview_switch = true;
+
+        on('newFile', (type) => {
+            if (type == C.TYPE.ARTICLE) {
+                this.$nextTick(() => this.controlHandle(true))
+            }
+        })
     }
 }
 </script>

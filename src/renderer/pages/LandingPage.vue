@@ -79,7 +79,7 @@ export default {
 }
 #wrapper {
     background: #fff;
-    height: 100vh;
+    height: calc(100vh - 30px);
     width: 100vw;
     .ant-layout {
         height: 100%;

@@ -66,6 +66,7 @@ export default new Vuex.Store({
     mutations: {
         typeChange(state, type) {
             state.type = type
+            state.gist = defaultGist
         },
         selectItem(state, item) {
             state.gist = item
@@ -112,7 +113,23 @@ export default new Vuex.Store({
                 ? state.articleModelList
                 : state.cheatSheetModleList
             ).push(gist)
-            emit('newFile')
+            emit('newFile', type)
+        },
+        deleteGist(state, { type, gist }) {
+            let list =
+                type == C.TYPE.ARTICLE
+                    ? state.articleModelList
+                    : state.cheatSheetModleList
+            let i = list.indexOf(gist)
+            if (i != -1) {
+                let gist = list[i]
+                if (state.gist == gist) {
+                    state.gist = defaultGist
+                    state.title = gist.title
+                    state.content = gist.content
+                }
+                list.splice(i, 1)
+            }
         }
     },
     strict: process.env.NODE_ENV !== 'production'

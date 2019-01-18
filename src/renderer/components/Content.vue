@@ -1,7 +1,4 @@
 <style lang="less">
-.content-wrapper {
-    height: 100%;
-}
 #placeholder {
     display: block;
     margin: 0 auto;

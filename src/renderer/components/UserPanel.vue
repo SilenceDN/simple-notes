@@ -81,7 +81,7 @@ li {
                 :src="avatarUrl"
                 alt
             >
-            <div>{{userName}}</div>
+            <div>{{userName.toLocaleUpperCase()}}</div>
         </div>
         <ul>
             <!-- <li>
@@ -117,6 +117,11 @@ export default {
     },
     computed: {
         ...mapState(['avatarUrl', 'userName'])
+    },
+    watch: {
+        userName (val) {
+            this.$electron.remote.getCurrentWindow().setTitle(`${val.toLocaleUpperCase()} | Made with ❤️`)
+        }
     },
     methods: {
         moveHandle (e) {

@@ -46,9 +46,13 @@ export default class GistModel {
             }
         })
     }
-
     delete() {
         let api = apiInstance()
-        api.deleteFile(this.id, this.fileName)
+        return api.update(this.id, {
+            description: util.getDescription(this.type),
+            files: {
+                [this.fileName]: null
+            }
+        })
     }
 }

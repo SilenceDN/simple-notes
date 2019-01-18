@@ -31,10 +31,10 @@
 
 <template>
     <div
-        class="head-wrapper tooltipped tooltipped-s"
+        class="head-wrapper"
+        :class="{'tooltipped tooltipped-s':!edit, 'hide':!show}"
         @click="edit=true"
         aria-label="点击编辑"
-        :class="{'hide':!show}"
     >
         <span v-show="!edit">{{currentValue}}</span>
         <a-input
@@ -84,13 +84,18 @@ export default {
     methods: {
         ...mapMutations(['updateTitle']),
         onUpdate () {
+            if (!this.currentValue) return;
+            if (this.currentValue == this.gist.title && this.currentValue != "未命名标题") {
+                this.edit = false;
+                return
+            };
             this.sync = true;
             this.updateTitle(this.currentValue);
             this.gist.save().then(() => {
-                this.sync = true;
+                this.sync = false;
                 this.edit = false;
             }).catch(() => {
-                this.sync = true;
+                this.sync = false;
                 this.$message.error("同步保存失败，请重试")
             })
         },
@@ -100,7 +105,7 @@ export default {
     },
     mounted () {
         on('newFile', () => {
-            this.edit = true
+            this.edit = true;
         })
     }
 }
