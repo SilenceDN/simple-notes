@@ -137,7 +137,7 @@ export default {
             this.percent = progressObj.percent.toFixed()
         })
         this.$ipc.on('update-available', () => {
-            this.newVesion()
+            this.newVesion(true)
         })
     },
     beforeDestroy () {

@@ -19,10 +19,14 @@
     .anticon {
         color: #e91e63;
         cursor: pointer;
+        width: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         position: absolute !important;
         right: 6px;
-        top: 50%;
-        transform: translateY(-50%);
+        top: 0;
+        bottom: 0;
         opacity: 0;
         transition: all 0.5s;
         &:hover {

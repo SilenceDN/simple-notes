@@ -103,6 +103,7 @@ export default {
         background: #fff;
         padding: 0px 12px;
         flex: 1;
+        display: flex;
     }
     .ant-layout-header {
         color: #303e4d;
