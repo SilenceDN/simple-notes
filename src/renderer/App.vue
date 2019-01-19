@@ -17,6 +17,7 @@
             <router-view></router-view>
         </a-spin>
         <guide :show.sync="guide"/>
+        <setting :show="setting"/>
     </div>
 </template>
 
@@ -25,9 +26,10 @@ import { mapActions, mapMutations, mapState } from 'vuex'
 import store from 'store'
 import Guide from '@/components/Guide'
 import ToolBar from '@/components/ToolBar'
+import Setting from '@/components/Setting'
 export default {
     name: 'simple-note',
-    components: { Guide, ToolBar },
+    components: { Guide, ToolBar, Setting },
     data () {
         return {
             guide: false
@@ -38,7 +40,7 @@ export default {
         ...mapMutations(['changeBlur', 'changeLoading'])
     },
     computed: {
-        ...mapState(['loading', 'blur'])
+        ...mapState(['loading', 'blur', 'setting'])
     },
     mounted () {
         this.changeBlur(true)

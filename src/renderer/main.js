@@ -11,7 +11,6 @@ import '@/assets/main.css'
 import store from './store'
 
 Vue.config.productionTip = false
-
 Vue.use(Antd)
 Vue.use(mavonEditor)
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'))

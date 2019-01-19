@@ -8,7 +8,7 @@
     width: 100%;
     display: flex;
     flex-direction: row;
-
+    z-index: 10000;
     span {
         line-height: 30px;
         margin-left: 6px;
@@ -77,7 +77,9 @@ export default {
     data () {
         return {
             title: 'Simple-Notes',
-            windowState: ''
+            windowState: '',
+            $window: null,
+
         }
     },
     watch: {
@@ -102,27 +104,28 @@ export default {
     },
     methods: {
         onMinimize () {
-            this.$electron.remote.getCurrentWindow().minimize()
+            this.$window.minimize()
         },
         onMaximize () {
-            this.$electron.remote.getCurrentWindow().maximize()
+            this.$window.maximize()
         },
         onRestore () {
-            this.$electron.remote.getCurrentWindow().unmaximize()
+            this.$window.unmaximize()
         },
         onClose () {
-            this.$electron.remote.getCurrentWindow().close()
+            this.$window.close()
         },
         onWindowStateChanged (event, args) {
-
-            console.log(event, args)
             this.windowState = args
         }
+    },
+    created () {
+        this.$window = this.$electron.remote.getCurrentWindow()
     },
     beforeMount () {
         let ipc = this.$electron.ipcRenderer;
         ipc.on('window-state-changed', this.onWindowStateChanged.bind(this));
-        this.windowState = getWindowState(this.$electron.remote.getCurrentWindow())
+        this.windowState = getWindowState(this.$window)
     },
     beforeDestroy () {
         let ipc = this.$electron.ipcRenderer;

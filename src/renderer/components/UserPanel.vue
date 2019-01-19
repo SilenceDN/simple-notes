@@ -88,12 +88,14 @@ li {
                 <a-icon type="file"/>
                 <a>新建</a>
             </li>-->
-            <li>
+            <li @click="syncNow">
                 <a-icon type="sync" :class="{'sync':sync}"/>
                 <a>同步</a>
             </li>
-            <li>
-                <a-icon type="setting"/>
+            <li @click="setting">
+                <a-badge :dot="hasNewVersion">
+                    <a-icon type="setting"/>
+                </a-badge>
                 <a>设置</a>
             </li>
         </ul>
@@ -101,7 +103,7 @@ li {
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapMutations, mapActions } from 'vuex';
 import { on } from '@/lib/bus';
 export default {
     components: {},
@@ -116,7 +118,7 @@ export default {
         };
     },
     computed: {
-        ...mapState(['avatarUrl', 'userName'])
+        ...mapState(['avatarUrl', 'userName', 'hasNewVersion'])
     },
     watch: {
         userName (val) {
@@ -124,6 +126,14 @@ export default {
         }
     },
     methods: {
+        ...mapActions(['init']),
+        ...mapMutations(['setting']),
+        syncNow(){
+            this.sync = true;
+            this.init(()=>{
+                this.sync = false
+            })
+        },
         moveHandle (e) {
             let box = this.$refs.img
             var size = parseInt(getComputedStyle(box).width)

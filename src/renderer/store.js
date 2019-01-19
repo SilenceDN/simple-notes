@@ -14,8 +14,10 @@ defaultGist.type = C.TYPE.ARTICLE
 
 export default new Vuex.Store({
     state: {
+        hasNewVersion: false,
         loading: false,
         blur: false,
+        setting: false,
         avatarUrl: '',
         userName: '',
         type: C.TYPE.ARTICLE,
@@ -28,7 +30,7 @@ export default new Vuex.Store({
     },
 
     actions: {
-        init({ commit }) {
+        init({ commit }, cb) {
             getCategoryList().then(([articles, cheatSheet]) => {
                 let articleModelList = [],
                     cheatSheetModleList = []
@@ -56,6 +58,7 @@ export default new Vuex.Store({
                     articleModelList,
                     cheatSheetModleList
                 })
+                cb && cb()
             })
             getUserInfo(info => {
                 commit('updateUserInfo', info)
@@ -130,6 +133,13 @@ export default new Vuex.Store({
                 }
                 list.splice(i, 1)
             }
+        },
+        setting(state) {
+            state.setting = !state.setting
+            state.blur = state.setting
+        },
+        newVesion(state, flag) {
+            state.hasNewVersion = flag
         }
     },
     strict: process.env.NODE_ENV !== 'production'

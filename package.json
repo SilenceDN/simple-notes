@@ -1,8 +1,8 @@
 {
     "name": "simple-notes",
-    "version": "0.0.1",
+    "version": "1.9.26",
     "author": "citizenl <citizenl@126.com>",
-    "description": "simple notes for code",
+    "description": "simple notes for programer",
     "license": "WTFPL",
     "main": "./dist/electron/main.js",
     "scripts": {
@@ -22,6 +22,12 @@
         "directories": {
             "output": "build"
         },
+        "publish": [
+            {
+                "provider": "generic",
+                "url": "https://notes-app.citizenl.cn/download/"
+            }
+        ],
         "files": [
             "dist/electron/**/*"
         ],
@@ -47,14 +53,25 @@
             "target": [
                 "nsis"
             ],
-            "icon": "build/icons/icon.ico",
+            "artifactName": "${productName}_setup_${version}.${ext}",
             "verifyUpdateCodeSignature": false
         },
         "linux": {
             "icon": "build/icons"
+        },
+        "nsis": {
+            "oneClick": false,
+            "perMachine": true,
+            "allowElevation": true,
+            "allowToChangeInstallationDirectory": true,
+            "createDesktopShortcut": true,
+            "runAfterFinish": true,
+            "installerIcon": "build/icons/icon.ico",
+            "uninstallerIcon": "build/icons/icon.ico"
         }
     },
     "dependencies": {
+        "about-window": "^1.12.1",
         "ant-design-vue": "^1.2.3",
         "axios": "^0.18.0",
         "clipboard": "^2.0.4",
@@ -85,7 +102,7 @@
         "css-loader": "^0.28.11",
         "del": "^3.0.0",
         "devtron": "^1.4.0",
-        "electron": "^2.0.4",
+        "electron": "^4.0.1",
         "electron-builder": "^20.19.2",
         "electron-debug": "^1.5.0",
         "electron-devtools-installer": "^2.2.4",

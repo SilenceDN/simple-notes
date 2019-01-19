@@ -81,6 +81,7 @@ export default {
     background: #fff;
     height: calc(100vh - 30px);
     width: 100vw;
+    transition: filter 0.05s;
     .ant-layout {
         height: 100%;
         background: #fff;
