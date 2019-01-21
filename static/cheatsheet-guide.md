@@ -1,14 +1,20 @@
 ### 常用的代码片段-FOO
 
-#### 二级标题
+#### foo
 
 ```js
 console.log('Hello')
 ```
 
+#### bar
+
+```js
+console.log('World')
+```
+
 ### 这里是分级标题-BAR
 
-#### 二级标题
+#### foo
 
 ```js
 console.log('Hola')

@@ -93,6 +93,13 @@ export default {
                     hljs.highlightBlock(block);
                 })
                 this.renderCopy()
+                document.querySelectorAll('.cheat-sheet-wraper a').forEach((a) => {
+                    a.onclick = (e) => {
+                        e.preventDefault();
+                        let href = a.getAttribute("href")
+                        this.$electron.shell.openExternal(href)
+                    }
+                })
             })
         },
         renderCopy () {

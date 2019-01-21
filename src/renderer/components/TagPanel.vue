@@ -17,7 +17,7 @@
             @itemSelect="handleItemSelect"
             :child="articleModelList"
         />
-        <tag-section title="PINNED" :child="pinned"/>
+        <!-- <tag-section title="PINNED" :child="pinned"/> -->
         <tag-section
             title="CheatSheets"
             @click="tagClick(1)"

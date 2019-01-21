@@ -2,8 +2,8 @@
 .tag-section {
     border-top: solid 1px #eaebeb;
     padding: 15px 0px;
-    flex: 1 0 33.333%;
-    max-height: 33.333%;
+    flex: 1 0 50%;
+    max-height: 50%;
     display: flex;
     flex-direction: column;
 }

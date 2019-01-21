@@ -86,7 +86,7 @@ export default {
             loading: false,
             token: '',
             step: 0,
-            percent: 99
+            percent: 0
 
         }
     },
