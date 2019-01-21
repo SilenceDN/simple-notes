@@ -8,14 +8,12 @@
 -   Markdown support
 -   Free
 
-> simple notes for code
-
+cheatsheet
 ![Screenshot](./docs/cheat_sheet_preview.png)
+article
 ![Screenshot](./docs/markdown-preview.png)
 
 ## Tech Stack
-
-![Based on](./docs/img/erb-logo.png)
 
 1. Framework: [Electron](http://electron.atom.io/)
 2. Bundler: [ElectronVue](https://github.com/SimulatedGREG/electron-vue) [Webpack](http://webpack.github.io/docs/), [Babel](https://babeljs.io), [electron-builder](https://github.com/electron-userland/electron-builder)
