@@ -1,10 +1,8 @@
 # SimpleNotes
 
-<div align="center">
-[![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
-</div>
+![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)
 
-**SimpleNotes** is a code snippet manager based on _GitHub Gist_. [Check out its latest release.](https://github.com/hackjutsu/Lepton/releases)
+**SimpleNotes** is a code snippet manager based on _GitHub Gist_
 
 -   Unlimited private snippets
 -   Markdown support
