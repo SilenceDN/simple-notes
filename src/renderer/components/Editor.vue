@@ -17,6 +17,9 @@
         padding: 25px !important;
     }
 }
+.markdown-body {
+    font-size: 14px !important;
+}
 </style>
 
 
@@ -74,7 +77,7 @@ export default {
                 ol: true, // 有序列表
                 ul: true, // 无序列表
                 link: true, // 链接
-                imagelink: true, // 图片链接
+                // imagelink: true, // 图片链接
                 code: true, // code
                 table: true, // 表格
                 fullscreen: true, // 全屏编辑

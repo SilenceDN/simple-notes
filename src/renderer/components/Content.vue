@@ -1,6 +1,7 @@
 <style lang="less">
 .content-wrapper {
     flex: 1;
+    width: 100%
 }
 #placeholder {
     display: block;

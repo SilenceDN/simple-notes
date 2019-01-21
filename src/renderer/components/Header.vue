@@ -27,20 +27,31 @@
         transform: rotate(360deg);
     }
 }
+
+.shake {
+    animation-name: shake-horizontal;
+    animation-duration: 100ms;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: 5;
+}
 </style>
 
 <template>
     <div
+        ref="wrapper"
         class="head-wrapper"
         :class="{'tooltipped tooltipped-s':!edit, 'hide':!show}"
-        @click="edit=true"
+        @click="editHandle"
         aria-label="点击编辑"
     >
         <span v-show="!edit">{{currentValue}}</span>
         <a-input
+            :class="{'shake':error}"
             ref="input"
             v-show="edit"
             @blur="onUpdate"
+            @focus="focusHandle"
+            @animationend="animationHandle"
             v-model="currentValue"
             @keyup.enter="onUpdate"
         >
@@ -52,12 +63,14 @@
 <script>
 import { mapState, mapMutations } from 'vuex'
 import { on } from '@/lib/bus'
+const defaultValue = "未命名标题"
 export default {
     name: 's-header',
     data () {
         return {
             sync: false,
             edit: false,
+            error: false,
             currentValue: ''
         }
     },
@@ -76,15 +89,15 @@ export default {
     watch: {
         title (val) {
             this.currentValue = val
-        },
-        edit (val) {
-            val && this.$nextTick(() => { this.$refs.input.focus() })
         }
     },
     methods: {
         ...mapMutations(['updateTitle']),
         onUpdate () {
-            if (!this.currentValue) return;
+            if (!this.currentValue) {
+                this.error = true;
+                return
+            };
             if (this.currentValue == this.gist.title && this.currentValue != "未命名标题") {
                 this.edit = false;
                 return
@@ -99,13 +112,24 @@ export default {
                 this.$message.error("同步保存失败，请重试")
             })
         },
-        getPopupContainer (trigger) {
-            return trigger.parentElement
+        focusHandle () {
+            let input = this.$refs.input;
+            console.log(input, input.setSelectionRange)
+            if (input.setSelectionRange) {
+                input.setSelectionRange(0, input.value.length);
+            }
+        },
+        editHandle () {
+            this.edit = true;
+            this.$nextTick(() => { this.$refs.input.focus() })
+        },
+        animationHandle () {
+            this.error = false;
         }
     },
     mounted () {
         on('newFile', () => {
-            this.edit = true;
+            this.editHandle()
         })
     }
 }

@@ -48,6 +48,9 @@
             top: 3px;
         }
     }
+    .ant-progress-text {
+        padding: 0px !important;
+    }
 }
 </style>
 
@@ -59,9 +62,9 @@
 
             <div class="btn-list">
                 <a-button type="primary" icon="poweroff" block @click="exit">注销</a-button>
-                <a-button block :icon="icon" @click="checkUpdate">
+                <a-button block :icon="icon" @click="checkUpdate" :disabled="!!percent">
                     <a-progress v-if="!!percent" :width="20" type="circle" :percent="percent"/>
-                    {{hasNewVersion ? '有新版本喔':'检查更新'}}
+                    {{percent ? '下载更新中':'检查更新'}}
                 </a-button>
                 <a-button type="dashed" icon="smile" block @click="about">关于</a-button>
             </div>
@@ -83,7 +86,7 @@ export default {
             loading: false,
             token: '',
             step: 0,
-            percent: 0
+            percent: 99
 
         }
     },
