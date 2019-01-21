@@ -1,7 +1,7 @@
 # SimpleNotes
 
 <div align="center">
-[![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg)](http://forthebadge.com) [![forthebadge](http://forthebadge.com/images/badges/uses-js.svg)]
+[![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
 </div>
 
 **SimpleNotes** is a code snippet manager based on _GitHub Gist_. [Check out its latest release.](https://github.com/hackjutsu/Lepton/releases)
