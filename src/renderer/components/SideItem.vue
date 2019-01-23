@@ -6,6 +6,7 @@
     position: relative;
     color: @color;
     padding: 8px 10px;
+    margin: 2px 0px;
     border-radius: 4px;
     transition: all 0.2s;
     word-break: break-all;

@@ -2,7 +2,6 @@
 <style>
 .resizer {
     background: #000;
-    opacity: 0.2;
     z-index: 1;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -10,11 +9,11 @@
     -moz-background-clip: padding;
     -webkit-background-clip: padding;
     background-clip: padding-box;
-    width: 2px;
-    margin: 0 -2px;
-    border-left: 2px solid rgba(0, 0, 0, 0);
-    border-right: 2px solid rgba(0, 0, 0, 0);
+    width: 6px;
+    margin: 0;
     cursor: col-resize;
+    background: url(../assets/grab.svg) no-repeat;
+    background-position: right center;
 }
 </style>
 

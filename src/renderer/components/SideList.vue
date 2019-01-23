@@ -2,8 +2,7 @@
 @color: #303e4d;
 @subColor: #838b94;
 ul {
-    flex: 0 0 auto;
-    width: 100%;
+    flex: 1;
     list-style: none;
     color: @color;
     padding: 12px;

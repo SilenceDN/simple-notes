@@ -19,6 +19,15 @@
 }
 .markdown-body {
     font-size: 14px !important;
+    pre {
+        font-size: 100% !important;
+        white-space: pre-wrap;
+        word-break: normal;
+
+        code {
+            white-space: pre-wrap !important;
+        }
+    }
 }
 </style>
 
