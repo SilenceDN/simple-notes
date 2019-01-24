@@ -1,6 +1,8 @@
 # SimpleNotes
 
-![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)
+![love](https://img.shields.io/badge/build%20with-%E2%9D%A4-%23f44336.svg)
+![license](https://img.shields.io/badge/license-WTFPL-black.svg)
+![build](https://travis-ci.com/SilenceDN/simple-notes.svg?branch=master)
 
 **SimpleNotes** is a code snippet manager based on _GitHub Gist_
 
