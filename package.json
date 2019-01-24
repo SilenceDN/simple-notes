@@ -19,6 +19,7 @@
     "build": {
         "productName": "simple-notes",
         "appId": "com.citizenl.notes",
+        "artifactName": "${productName}.${ext}",
         "directories": {
             "output": "build"
         },
@@ -44,22 +45,19 @@
                     "y": 150,
                     "type": "file"
                 }
-            ]
-        },
-        "mac": {
-            "icon": "build/icons/icon.icns",
-            "artifactName": "${productName}_setup_${version}.${ext}"
+            ],
+            "artifactName": "${productName}.${ext}"
         },
         "win": {
             "target": [
                 "nsis"
             ],
-            "artifactName": "${productName}_setup_${version}.${ext}",
+            "artifactName": "${productName}.${ext}",
             "verifyUpdateCodeSignature": false
         },
         "linux": {
             "icon": "build/icons",
-            "artifactName": "${productName}_setup_${version}.${ext}"
+            "artifactName": "${productName}.${ext}"
         },
         "nsis": {
             "oneClick": false,

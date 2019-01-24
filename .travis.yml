@@ -39,7 +39,10 @@ deploy:
     provider: releases
     api_key:
         secure: uLaxWsZ4LgDiuOZ8C/EGkuDGQ7iaMyvUnO8xjzfiU2I62e9lz/Nye/pgnDZVoYOeVuA53mCzEqJuOiTQbTeD9QM54YTCCnl93qXXYepFdFEn3/Kg6wfy0LClSN8w24I15t4xKnzADpKZIujaQt42KsVovX578cg9fR0qX7pqwahTSWLq1OZebD0YqlrwenaQpoFe5YXhC0Krf2Zg763YlDuGAELd7GGI9OO57pLY+PNI/+tgb8X6VdPyGeUGjnq2yiNzVc0ZXczbIkINOl0LWvbCdmz7HjqcD2IJj21rcDDIT7eMTRkvXZe6PS9gOkvmC97uzSD7tMPeNUgIxnOW+lHXmcLc5DsoAszp6rID6cm6Q20RxHdPq85INTKaztYSFH/tw+lOTfNMK+9OXy8UsbDHmoCZJAP8XKS3tROszwiCiGHCx0JFA6pOIoxYBd15C4M/i+nT661Xaolza1OXtUDRdOPaCS0oB0KIg7uprLBdfI0C1llytXhLmHbQmPla2nFxAFxJDlkBC4wqTaXnj3nJrO5V4OukiBXAe9jzLCBB/63wSoz1iI9UmKiV44erbO5toTTmfIfy1ktT/waEJIXHiKhc3dLEMeRdSYEPwxcQt9W7eXDObYLJwPTVRFSi3I2q/40vZ22VF+ajS8FcgfHTARgsmSr97sL+tkf7Ge8=
-    file: simple-notes_setup_*.*
+    file:
+        - 'build/simple-notes.dmg'
+        - 'build/simple-notes.snap'
+        - 'build/simple-notes.AppImage'
     skip_cleanup: true
     on:
         tags: true
