@@ -47,7 +47,8 @@
             ]
         },
         "mac": {
-            "icon": "build/icons/icon.icns"
+            "icon": "build/icons/icon.icns",
+            "artifactName": "${productName}_setup_${version}.${ext}"
         },
         "win": {
             "target": [
@@ -57,7 +58,8 @@
             "verifyUpdateCodeSignature": false
         },
         "linux": {
-            "icon": "build/icons"
+            "icon": "build/icons",
+            "artifactName": "${productName}_setup_${version}.${ext}"
         },
         "nsis": {
             "oneClick": false,
