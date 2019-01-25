@@ -9,14 +9,13 @@
     display: flex;
     flex-direction: row;
     z-index: 10000;
+    justify-content: center;
     span {
         line-height: 30px;
         margin-left: 6px;
     }
 }
 .controls {
-    flex-grow: 0;
-    flex-shrink: 0;
     margin-left: auto;
 }
 .controls button {
@@ -50,7 +49,7 @@
 <template>
     <div class="title-bar">
         <span>{{title}}</span>
-        <div class="controls">
+        <div class="controls" v-if="showControls">
             <button
                 @click="item.handle"
                 class="window-control"
@@ -89,17 +88,16 @@ export default {
     },
     computed: {
         ...mapState(['userName']),
+        showControls () {
+            return process.platform === 'win32'
+        },
         btns () {
-            if (process.platform === 'win32') {
-                let min = { name: 'minimize', handle: this.onMinimize, path: minimizePath };
-                let maximizeOrRestore = this.windowState == 'maximized' ? { name: 'restore', handle: this.onRestore, path: restorePath } : { name: 'maximize', handle: this.onMaximize, path: maximizePath }
-                let close = { name: 'close', handle: this.onClose, path: closePath };
-                return [
-                    min, maximizeOrRestore, close
-                ]
-            } else {
-                return []
-            }
+            let min = { name: 'minimize', handle: this.onMinimize, path: minimizePath };
+            let maximizeOrRestore = this.windowState == 'maximized' ? { name: 'restore', handle: this.onRestore, path: restorePath } : { name: 'maximize', handle: this.onMaximize, path: maximizePath }
+            let close = { name: 'close', handle: this.onClose, path: closePath };
+            return [
+                min, maximizeOrRestore, close
+            ]
         }
     },
     methods: {
