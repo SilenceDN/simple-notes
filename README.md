@@ -4,6 +4,7 @@
   <img src="https://img.shields.io/badge/license-WTFPL-black.svg"/>
   <img src="https://travis-ci.com/SilenceDN/simple-notes.svg?branch=master"/>
 </p>
+
 **SimpleNotes** is a code snippet manager based on _GitHub Gist_
 
 -   Unlimited private snippets
