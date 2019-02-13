@@ -1,9 +1,9 @@
 # SimpleNotes
-<center>
+<p align="center">
 ![love](https://img.shields.io/badge/build%20with-%E2%9D%A4-%23f44336.svg)
 ![license](https://img.shields.io/badge/license-WTFPL-black.svg)
 ![build](https://travis-ci.com/SilenceDN/simple-notes.svg?branch=master)
-</center>
+</p>
 **SimpleNotes** is a code snippet manager based on _GitHub Gist_
 
 -   Unlimited private snippets
