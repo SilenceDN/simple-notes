@@ -1,8 +1,8 @@
 # SimpleNotes
 <p align="center">
-![love](https://img.shields.io/badge/build%20with-%E2%9D%A4-%23f44336.svg)
-![license](https://img.shields.io/badge/license-WTFPL-black.svg)
-![build](https://travis-ci.com/SilenceDN/simple-notes.svg?branch=master)
+  <img src="https://img.shields.io/badge/build%20with-%E2%9D%A4-%23f44336.svg"/>
+  <img src="https://img.shields.io/badge/license-WTFPL-black.svg"/>
+  <img src="https://travis-ci.com/SilenceDN/simple-notes.svg?branch=master"/>
 </p>
 **SimpleNotes** is a code snippet manager based on _GitHub Gist_
 
